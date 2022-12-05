@@ -1,6 +1,22 @@
 #include <iostream>
 #include <bitset>
 
+int corrector_inputing(int allowed_values_from, int allowed_values_up_to)
+{
+    bool chek = false;
+    int temp_ = 0;
+    do {
+        std::cin >> temp_;
+        chek = (allowed_values_from <= temp_ && temp_ <= allowed_values_up_to); // if num between allowed values true
+        if (!chek)
+        {
+            std::cerr << "Invalid numeber\nTry again\n";
+
+        }
+    }
+    while (!chek);
+    return temp_;
+}
 
 enum note
 {
@@ -15,9 +31,22 @@ enum note
 
 int main() {
     std::cout << "Ex 4\n";
-    std::cout << "Input songs";
-    int melody[12] = { 0 }, temp = 0;
-    for (int i = 0; i < 12; i++) std::cin >> melody[i];
+    std::cout << "Input songs\nEvery num space num\n12 notes";
+
+    int _shift_[12] = { 0 };
+    int melody[12] = { 0 };
+    
+    int _size_arr = sizeof(_shift_) / sizeof(int);
+
+    for (int i = 0; i < _size_arr; i++)
+    {
+        _shift_[i] = corrector_inputing (1, 7);
+        _shift_[i]--;
+        melody[i]++;
+
+        melody[i] = melody[i] << _shift_[i]; // shift 1 to needed position
+    }
+
     for (int i = 0; i < 12; i++)
     {
         if (melody[i] &note::DO)
