@@ -1,39 +1,48 @@
 #include <iostream>
-bool stop_()
+#include <stdio.h>
+#include <string.h>
+
+bool shit(char* str, char* str_2)
 {
-	std::string answere;
-	std::cout << "Stop machine? (yes\\no)";
-	std::cin >> answere;
-	if (answere == "yes" || answere == "Yes" || answere == "YES") return true;
-	else if (answere == "no" || answere == "No" || answere == "NO") return false;
+	float value_1 = std::atof(str);
+	float value_2 = std::atof(str_2);
+
+	if (value_1 <= value_2)return true;
+	else return false;
+
 }
+
+
 bool compare(float value, float reference, float epsilon)
 {
 	return (value >= reference - epsilon) && (value <= reference + epsilon);
 }
 
-int main_1()
+int main()
 {
 	float speed = 0.0f;
 	float temp = speed;
+	float temp_2 = 0.f;
 	char pole[6];
-	char spd_str[5];
+	char spd_str[50] = "";
 	do
 	{
-		//sprintf(spd_str, "%.1f", speed);
 		std::cout << "Speed: " << spd_str << " mp\\h\n";
 		std::cin >> pole;
 		temp = std::atof(pole);
-		if (speed + temp <= 150.0f)speed += temp;
-		else {
+		temp_2 = speed + temp;
+		std::sprintf(spd_str, "%.01f", temp_2);
+
+		if (shit(spd_str, "150.0")) speed += temp;
+		else
+		{
 			std::cout << "Max speed 150 mp\\h\n";
+			std::sprintf(spd_str, "%.01f", speed);
 		}
 
 		if (compare(speed, .0f, 0.01f)) {
-			if (stop_()) break;
 			speed = 0;
 		}
-
 
 	} while (true);
 	return 0;
